@@ -57,9 +57,6 @@ label {
   border-radius: 0px;
   color: white;
 }
-/*#searchText {
-  color: green;
-}*/
 
 .theme-dropdown .dropdown-menu {
   position: static;
@@ -80,9 +77,6 @@ label {
   text-align: center;
 }
 
-/*.theme-showcase .navbar .container {
-  width: auto;
-}*/
 #div_container {
   height: 93%;
 }
