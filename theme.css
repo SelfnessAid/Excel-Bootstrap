@@ -120,7 +120,7 @@ label {
   .result-container, .footer, .result-copyright {
     font-size: 14px;
   }
-  .result-back {
+  input[type=submit] {
     font-size: 14px;
     margin-right: -5px; 
   }
