@@ -121,9 +121,7 @@ label {
     font-size: 14px;
   }
   .result-back {
-    font-size: 14px;
-    margin-top: 15px;
-    align-content: 'right';
+    margin-right: -5px; 
   }
   .container, .footer {
     font-size: 14px;
