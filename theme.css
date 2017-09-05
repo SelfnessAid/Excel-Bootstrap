@@ -117,10 +117,11 @@ label {
   }
 }
 @media screen and (max-width: 414px) and (min-width: 320px) {
-  .result-container, .footer, .result-copyright, .result-back {
+  .result-container, .footer, .result-copyright {
     font-size: 14px;
   }
   .result-back {
+    font-size: 14px;
     margin-right: -5px; 
   }
   .container, .footer {
