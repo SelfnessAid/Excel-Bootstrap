@@ -1,0 +1,159 @@
+body {
+  background-image: url("assets/img/background.gif");
+  font-family: "Arial";
+}
+
+.container {
+  padding-top:  40px;
+  padding-bottom: 40px;
+  padding-left: 0px;
+  padding-right: 0px;
+  font-size: 14px;
+}
+.result-container {
+  padding:  40px;
+}
+.header {
+  color: white;
+}
+footer {
+  background-color: transparent !important;
+}
+.button-center {
+  width: 300px;
+  margin: auto;
+}
+.btn {
+  border-radius: 0px;
+  background-color: white;
+}
+.header {
+  text-align: center;
+}
+.input-back {
+  background: transparent;
+  border: 0;
+  color: white;
+  margin-top: 15px;
+}
+label {
+  color: white;
+}
+.form-group {
+  text-align: center;
+  width: 300px;
+  margin: auto;
+  padding-bottom: 20px;
+}
+.text-copyright, .result-copyright {
+  color: white;
+  font-size: 14px;
+}
+.back {
+  width: 80px;
+}
+.form-control {
+  background-color: transparent;
+  border-radius: 0px;
+  color: white;
+}
+/*#searchText {
+  color: green;
+}*/
+
+.theme-dropdown .dropdown-menu {
+  position: static;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.theme-showcase > p > .btn {
+  margin: 5px 0;
+}
+
+.no-result {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  text-align: center;
+}
+
+/*.theme-showcase .navbar .container {
+  width: auto;
+}*/
+#div_container {
+  height: 93%;
+}
+#result_title {
+  color: white;
+}
+#mytable {
+  word-break: break-all;
+  word-wrap: break-word;
+}
+
+#concat {
+  color: white;
+}
+
+.footer-row{
+  margin: 0;
+}
+.body-container {
+  height: 92%;
+}
+@media (min-width: 992px) {
+  .container {
+      width: 100%;
+  }
+  .back {
+    width: 120px;
+  }
+}
+@media screen and (max-width: 992px) and (min-width: 640px) {
+  .back {
+    width: 100px;
+  }
+}
+@media screen and (max-width: 414px) and (min-width: 320px) {
+  .result-container, .footer, .result-copyright, .result-back {
+    font-size: 14px;
+  }
+  .container, .footer {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 320px){
+  .body-container {
+    height: 88%;
+  }
+  #div_container {
+    height: 90%;
+  }
+}
+
+@media (min-width: 414px) {
+  .back {
+    width: 90px;
+  }
+}
+
+@media (max-width: 768px) {
+    .btn,.btn-group {
+        width:100%;
+    }
+}
+
+@media (min-width: 768px) {
+  .container {
+      width: 100%;
+  }
+}
+
+
+@media screen and (max-width: 640) and (min-width: 320px) {
+
+}

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en" style="height: 100%;">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Result</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link href="bootstrap-3.3.7-dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="theme.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="sticky-footer.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="assets/js/ie-emulation-modes-warning.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="assets/js/shim.js"></script>
+    <script src="assets/js/jszip.js"></script>
+    <script src="assets/js/xlsx.js"></script>
+    <script src="assets/js/parse.js"></script>
+  </head>
+
+  <body class="body-container">
+    <div class="result-container theme-showcase" style="height: 100%;" role="main">
+
+      <div>
+        <p id="result_title">Result for <span id="searchText"></span> in <span id="title"></span></p>
+        <p class="result-copyright">Play by Ear Music School | All Rights Reserved</p>
+      </div>
+      <div id="div_container">
+        <div class="no-result">
+          No result
+        </div>
+      </div>
+
+      <div class="footer-container" style="float: right; padding-top: 5px;">
+        <form action="index.html">
+            <input type="submit" class="result-back" value="Back to Main Menu" />
+        </form>
+      </div>
+
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="assets/js/vendor/jquery-3.2.1.min.js"><\/script>')</script>
+    <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <script src="assets/js/docs.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="assets/js/ie10-viewport-bug-workaround.js"></script>
+
+    <script>
+      var type;
+      var value;
+      function getQuery(str) {
+          return str.split('?')[1];
+      }
+      $(document).ready(function () {
+        function qs() {
+          var qsparam = new Array(10);
+          // var query = window.location.search.substring(1);
+          var query = getQuery(window.location.href);
+          var parms = query.split('&');
+
+          for (var i = 0; i < parms.length; i++) {
+            console.log(parms.length);
+            var pos = parms[i].indexOf('=');
+            if (pos > 0)
+            {
+                var key = parms[i].substring(0, pos);
+                var val = parms[i].substring(pos + 1);
+                qsparam[i] = val;
+                console.log("PARAM", parms[i]);
+            }
+        }
+        var param = qsparam[0];
+        this.type = param;
+        var strstr = qsparam[1].replace(/-/g, "&");
+        this.value = strstr;
+
+        var str = this.value.replace(/%20/g, " ");
+        document.getElementById('searchText').innerHTML = str;
+        switch (param) {
+          case "title":
+            document.getElementById('title').innerHTML = 'Song title';
+            break;
+          case "artist":
+            document.getElementById('title').innerHTML = 'Artiste';
+            break;
+          case "genre":
+            document.getElementById('title').innerHTML = 'Song genre/Language';
+            break;
+          case "signature":
+            document.getElementById('title').innerHTML = 'Key Signature';
+            break;
+          case "difficulty":
+            document.getElementById('title').innerHTML = 'Song difficulty';
+            break;
+          case "keyword":
+            document.getElementById('title').innerHTML = 'Keyword search';
+            break;
+          case "serial":
+            document.getElementById('title').innerHTML = 'Serial No';
+            break;
+
+          default:
+            break;
+
+        }
+
+        }
+        $(".no-result").hide();
+        var splitstr = qs();
+        getFileObject('content.xlsx', function (fileObject) {
+             console.log("fileObject", fileObject);
+
+             do_file(fileObject, function(jsonObj) {
+               console.log("input json string", jsonObj);
+               var jsonArray = jsonObj[Object.keys(jsonObj)[0]];
+               switch (this.type) {
+                 case "title":
+                  var filtered=jsonArray.filter(function(item){
+                    if (item["Song title"].toUpperCase().indexOf((this.value).toUpperCase()) != -1) {
+                      return item;
+                    }
+                  });
+
+                  display(filtered);
+                  break;
+                 case "artist":
+                   var filtered=jsonArray.filter(function(item){
+                     if (item["Artiste"].toUpperCase().indexOf((this.value).toUpperCase()) != -1) {
+                       return item;
+                     }
+                   });
+
+                   display(filtered);
+                   break;
+                 case "keyword":
+                   var filtered=jsonArray.filter(function(item){
+                     if (item["Artiste"].toUpperCase().indexOf((this.value).toUpperCase()) != -1 ||
+                          item["Song title"].toUpperCase().indexOf((this.value).toUpperCase()) != -1 ||
+                          item["Serial No"].toUpperCase().indexOf((this.value).toUpperCase()) != -1 ||
+                          item["Genre"].toUpperCase().indexOf((this.value).toUpperCase()) != -1 ||
+                          item["Key"].toUpperCase().indexOf((this.value).toUpperCase()) != -1 ||
+                          item["Difficulty"].toUpperCase().indexOf((this.value).toUpperCase()) != -1
+                   ) {
+                       return item;
+                     }
+                   });
+
+                   display(filtered);
+                   break;
+                 case "serial":
+                   var filtered=jsonArray.filter(function(item){
+                     if (item["Serial No"].toUpperCase().indexOf((this.value).toUpperCase()) != -1) {
+                       return item;
+                     }
+                   });
+
+                   display(filtered);
+                   break;
+                 case "genre":
+                   var filtered=jsonArray.filter(function(item){
+                     if (item["Genre"].toUpperCase().indexOf((this.value).toUpperCase()) != -1) {
+                       return item;
+                     }
+                   });
+
+                   display(filtered);
+                   break;
+                 case "signature":
+                   var filtered=jsonArray.filter(function(item){
+                       return item["Key"].toUpperCase()===((this.value).toUpperCase());
+                   });
+
+                   display(filtered);
+                   break;
+                 case "difficulty":
+                 console.log("value", this.value);
+                   var filtered=jsonArray.filter(function(item){
+                     var strstr = this.value.replace(/%20/g, " ");
+                       return item["Difficulty"].toUpperCase()===((strstr).toUpperCase());
+                   });
+
+                   display(filtered);
+                   break;
+                 default:
+                    break;
+               }
+             });
+
+        });
+    });
+
+    function display(array) {
+      if (array.length > 0) {
+        $(".no-result").hide();
+      } else {
+        $(".no-result").show();
+      }
+      var tbl=$("<table/>").attr("id","mytable");
+      $("#div_container").append(tbl);
+      $("#div_container").css({"border": "1px white solid",
+                              "padding": "5px",
+                              "color": "white",
+                              "overflow-y": "auto",
+                              "background-color": "#212121"});
+
+      for(var i=0;i<array.length;i++)
+      {
+          var tr="<tr>";
+          var td="<td>"+array[i]["Serial No"]+"<span id='concat'>&nbsp;|&nbsp;</span>"
+                        +"<span style='color: #63ff00;'>"+array[i]["Song title"]+"</span>"+"<span id='concat'>&nbsp;|&nbsp;</span>"
+                        +array[i]["Artiste"]+"<span id='concat'>&nbsp;|&nbsp;</span>"
+                        +array[i]["Key"]+"<span id='concat'>&nbsp;|&nbsp;</span>"
+                        +array[i]["Difficulty"]+"<span id='concat'>&nbsp;|&nbsp;</span>"
+                        +array[i]["Genre"]+"</td></tr>";
+
+         $("#mytable").append(tr+td);
+
+      }
+    }
+    </script>
+
+
+  </body>
+</html>
