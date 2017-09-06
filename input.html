@@ -121,10 +121,6 @@
                   qsparam[i] = val;
               }
           }
-          //  text1.value = qsparam[0];
-          //  text2.value = qsparam[1];
-          //  text3.value = qsparam[2];
-          //  text4.value = qsparam[3];
           var param = qsparam[0];
           this.type = param;
           // $('#mode').hide();
@@ -252,6 +248,7 @@
           }
         }
         console.log("input", inputText);
+        selectedValue = inputText;
         window.location.href = "result.html?type=" + this.type+"&value="+selectedValue;
       }
 
