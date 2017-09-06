@@ -176,14 +176,7 @@
                    case "genre":
                    $("#song-input").hide();
                    $("#mode").show();
-                    // var genre = _.keys(_.countBy(jsonObj, function(data) { return data["Genre"]; }));
                     var genreNames = groupBy(jsonArray, 'Genre').sort();
-
-                    // for (var idx in genreNames) {
-                    //     $("#mode").append('<option value=' + genreNames[idx] + '>' + genreNames[idx] + '</option>');
-                    //     console.log("gefdaf", genreNames[idx]);
-                    // }
-                    // $('#mode').selectpicker('refresh');
                     appendSelectValues(genreNames);
 
                      break;
@@ -248,7 +241,9 @@
           }
         }
         console.log("input", inputText);
-        selectedValue = inputText;
+        if (this.type == 'title' || this.type == 'artist' || this.type == 'keyword' || this.type == 'serial') {
+          selectedValue = inputText;
+        }
         window.location.href = "result.html?type=" + this.type+"&value="+selectedValue;
       }
 
